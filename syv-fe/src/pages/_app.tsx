@@ -4,11 +4,14 @@ import createEmotionCache from "@/styles/createEmotionCache";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import { useRouter } from "next/router";
 import { I18nProvider } from "next-localization";
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "@/hooks/useDarkMode";
 import { ThemeContext } from "@/contexts/themeContext";
 import { GlobalStyles } from "@/styles/GlobalStyles";
+import { AuthContext } from "@/contexts/authContext";
+import { LangContext } from "@/contexts/langContext";
+import { useLang } from "@/hooks/useLang";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -25,6 +28,7 @@ export default function App({
   const { lngDict } = pageProps;
 
   const { theme, themeToggle, mountedComponent, themeMode } = useDarkMode();
+  const { lang, changeLang } = useLang();
 
   const locale = useMemo(
     () => (!!router?.locale ? router?.locale : "en"),
@@ -36,12 +40,18 @@ export default function App({
   return (
     <CacheProvider value={emotionCache}>
       <ThemeContext.Provider value={{ theme, themeToggle }}>
-        <ThemeProvider theme={themeMode}>
-          <GlobalStyles />
-          <I18nProvider lngDict={{ ...lngDict }} locale={locale}>
-            <Component {...pageProps} />
-          </I18nProvider>
-        </ThemeProvider>
+        <LangContext.Provider value={{ lang, changeLang }}>
+          <AuthContext.Provider value={{}}>
+            <ThemeProvider theme={themeMode}>
+              <GlobalStyles />
+              <I18nProvider lngDict={{ ...lngDict }} locale={locale}>
+                <React.Fragment>
+                  <Component {...pageProps} />
+                </React.Fragment>
+              </I18nProvider>
+            </ThemeProvider>
+          </AuthContext.Provider>
+        </LangContext.Provider>
       </ThemeContext.Provider>
     </CacheProvider>
   );

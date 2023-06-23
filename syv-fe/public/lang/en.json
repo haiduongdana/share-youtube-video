@@ -1,4 +1,8 @@
 {
-  "title": "EN-Title",
-  "content": "EN-Content"
+  "login": "Log In",
+  "signup": "Sign Up",
+  "dark": "Dark",
+  "light": "Light",
+  "dashboard": "Dashboard",
+  "logout": "Log Out"
 }

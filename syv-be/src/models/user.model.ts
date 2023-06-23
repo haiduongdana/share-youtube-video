@@ -28,15 +28,6 @@ const UserSchema = new mongoose.Schema<User>(
       type: String,
       default: DEFAULT_PHOTO,
     },
-    resetPasswordLink: {
-      type: String,
-      default: "",
-    },
-    isVerified: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     refreshTokens: [
       {
         type: mongoose.Schema.Types.ObjectId,
