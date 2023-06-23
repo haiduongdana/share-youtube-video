@@ -43,13 +43,13 @@ app.use(
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use(multer(multerConfig.options).fields(multerConfig.fields));
 
-app.use("/api", apiRoute);
-app.use("*", handleRoute);
-app.use(routeErrorHandler);
-
 if (NODE_ENV === "dev") {
   app.use(cors({ origin: CLIENT_URL }));
   app.use(errorHandler());
 }
+
+app.use("/api", apiRoute);
+app.use("*", handleRoute);
+app.use(routeErrorHandler);
 
 export default app;

@@ -9,9 +9,11 @@ import { ThemeProvider } from "styled-components";
 import { useDarkMode } from "@/hooks/useDarkMode";
 import { ThemeContext } from "@/contexts/themeContext";
 import { GlobalStyles } from "@/styles/GlobalStyles";
-import { AuthContext } from "@/contexts/authContext";
+import { AuthContextProvider } from "@/contexts/authContext";
 import { LangContext } from "@/contexts/langContext";
 import { useLang } from "@/hooks/useLang";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -41,16 +43,17 @@ export default function App({
     <CacheProvider value={emotionCache}>
       <ThemeContext.Provider value={{ theme, themeToggle }}>
         <LangContext.Provider value={{ lang, changeLang }}>
-          <AuthContext.Provider value={{}}>
+          <AuthContextProvider>
             <ThemeProvider theme={themeMode}>
               <GlobalStyles />
               <I18nProvider lngDict={{ ...lngDict }} locale={locale}>
                 <React.Fragment>
                   <Component {...pageProps} />
+                  <ToastContainer />
                 </React.Fragment>
               </I18nProvider>
             </ThemeProvider>
-          </AuthContext.Provider>
+          </AuthContextProvider>
         </LangContext.Provider>
       </ThemeContext.Provider>
     </CacheProvider>

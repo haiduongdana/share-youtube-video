@@ -39,6 +39,7 @@ const Container = styled.div.attrs((props) => ({
   ${(props) =>
     props.alignItems && `align-items: ${props.alignItems} !important;`}
   ${(props) => props.height && `height: ${props.height} !important;`}
+  ${(props) => props.gap && `gap: ${props.gap} !important;`}
   ${(props) => props.zIndex && `z-index: ${props.zIndex} !important;`}
   ${(props) =>
     props.flexDirection && `flex-direction: ${props.flexDirection} !important;`}

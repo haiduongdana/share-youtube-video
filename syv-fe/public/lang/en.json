@@ -4,5 +4,12 @@
   "dark": "Dark",
   "light": "Light",
   "dashboard": "Dashboard",
-  "logout": "Log Out"
+  "logout": "Log Out",
+  "username": "Username",
+  "email": "Email",
+  "password": "Password",
+  "submit": "Submit",
+  "already_have_account": "Already have account",
+  "sign_up_success": "Sign Up Successfully!",
+  "log_in_success": "Log In Successfully!"
 }

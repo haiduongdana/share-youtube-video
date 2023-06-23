@@ -169,7 +169,6 @@ const TextField: React.FC<MuiTextFieldProps & TextFieldProps> = ({
         maxLength,
       }, // set html attributes
       InputProps: InputProp,
-      name,
       onFocus: onFocusHandler,
       onBlur: onBlurHandler,
       maxRows: rowsMax,
@@ -189,7 +188,6 @@ const TextField: React.FC<MuiTextFieldProps & TextFieldProps> = ({
       inputStyle,
       maxLength,
       InputProp,
-      name,
       onFocusHandler,
       onBlurHandler,
       rowsMax,
@@ -214,9 +212,9 @@ const TextField: React.FC<MuiTextFieldProps & TextFieldProps> = ({
         variant="outlined"
         autoComplete="off"
         fullWidth
-        name={name}
         {...props}
         {...styleTextProps}
+        name={name}
         data-sl="mask"
         onChange={onChangeHandler}
         value={fieldValue}

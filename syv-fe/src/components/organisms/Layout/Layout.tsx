@@ -1,17 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { LayoutProps } from "./Layout.types";
 import { LayoutWrapper } from "./Layout.styled";
 import Head from "next/head";
 import { useReadyDocument } from "@/hooks/useReadyDocument";
 import { Header } from "../Header";
-import { AuthContext } from "@/contexts/authContext";
 import { Container } from "@/components/atoms";
 
 const Layout: React.FC<LayoutProps> = ({ children, seoTitle, styles }) => {
   const { isDomLoaded } = useReadyDocument();
-  const { email, photo, refreshTokens, username } = useContext(AuthContext);
-
-  console.log({ email, photo, refreshTokens, username });
 
   return (
     <LayoutWrapper>

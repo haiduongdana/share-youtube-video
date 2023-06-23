@@ -19,7 +19,7 @@ export interface TextFieldProps {
   description?: string;
   adornmentFrontLabel?: JSX.Element;
   adornmentEndLabel?: JSX.Element;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   name?: string;
   onBlur?: (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>

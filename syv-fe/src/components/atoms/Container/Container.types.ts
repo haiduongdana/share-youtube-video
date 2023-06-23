@@ -24,6 +24,7 @@ export interface ContainerProps {
   width?: string;
   height?: string;
   zIndex?: number;
+  gap?: string;
 
   // margin on different screen size
   // you can reference the breakpoint from utils/responsive.tsx

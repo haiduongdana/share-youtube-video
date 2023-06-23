@@ -11,7 +11,7 @@ import { useI18n } from "next-localization";
 import { LANG } from "@/constants";
 
 const Header: React.FC<HeaderProps> = ({}) => {
-  const { username } = useContext(AuthContext);
+  const { isLoggedIn, userData } = useContext(AuthContext);
   const { theme, themeToggle } = useContext(ThemeContext);
   const { lang, changeLang } = useContext(LangContext);
   const { t } = useI18n();
@@ -44,12 +44,15 @@ const Header: React.FC<HeaderProps> = ({}) => {
           <Button onClick={onChangeLangHandler}>
             {lang === "en" ? "VI" : "EN"}
           </Button>
-          <HeaderItem link="/signup" title={t(LANG.SIGN_UP)} />
-          <HeaderItem link="/login" title={t(LANG.LOG_IN)} />
-          {username && (
-            <HeaderItem link="/dashboard" title={t(LANG.DASHBOARD)} />
+          {!isLoggedIn && <HeaderItem link="/signup" title={t(LANG.SIGN_UP)} />}
+          {!isLoggedIn && <HeaderItem link="/login" title={t(LANG.LOG_IN)} />}
+          {isLoggedIn && (
+            <HeaderItem
+              link="/dashboard"
+              title={`${userData?.username} ${t(LANG.DASHBOARD)}`}
+            />
           )}
-          {username && <HeaderItem link="/logout" title={t(LANG.LOG_OUT)} />}
+          {isLoggedIn && <HeaderItem link="/logout" title={t(LANG.LOG_OUT)} />}
         </RouteContainer>
       </Container>
     </HeaderContainer>

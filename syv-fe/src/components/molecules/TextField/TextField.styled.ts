@@ -5,7 +5,7 @@ import {
   InputAdornment as MuiInputAdornment,
   FormHelperText as MuiFormHelperText,
 } from "@mui/material";
-import { ThemeMode } from "@utils/themes";
+import { ThemeMode } from "@/utils/themes";
 import styled from "styled-components";
 
 export const DefaultFormControl = styled(FormControl)<{

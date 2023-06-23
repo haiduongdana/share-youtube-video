@@ -8,6 +8,7 @@ export interface ThemeMode {
     background: string;
     textButtonHover: string;
     containedButtonHover: string;
+    alert: string;
   };
   spacing: {
     padding: {
@@ -53,6 +54,7 @@ export const lightTheme: ThemeMode = {
     background: colorsUtils.white,
     textButtonHover: colorsUtils.darkGrayLighter,
     containedButtonHover: colorsUtils.deepBlack,
+    alert: colorsUtils.alertRed,
   },
   spacing: {
     padding: {
@@ -99,6 +101,7 @@ export const darkTheme: ThemeMode = {
     background: colorsUtils.black,
     textButtonHover: colorsUtils.whiteTranslucent,
     containedButtonHover: colorsUtils.softWhite,
+    alert: colorsUtils.alertRed,
   },
 };
 

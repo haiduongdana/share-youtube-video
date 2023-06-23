@@ -13,4 +13,5 @@ export const colorsUtils = {
   grayLight: "#B3B3B3",
   grayDark: "#808080",
   grayDarker: "#333333",
+  alertRed: "#b30909",
 };
