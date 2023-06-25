@@ -8,9 +8,6 @@ export interface Video {
   title: string;
   thumbnailUrl: string;
   sharedDate: string;
-  createdAt: string;
-  updatedAt: string;
-  __v: number;
   user: {
     _id: string;
     username: string;

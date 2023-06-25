@@ -79,6 +79,18 @@ const removeRefreshToken = async (
   );
 };
 
+const getSharedVideoList = async (userId: string) => {
+  return await UserModel.findById(userId)
+    .select("_id username email sharedVideos")
+    .populate({
+      path: "sharedVideos",
+      populate: {
+        path: "userId",
+        select: "_id username email",
+      },
+    });
+};
+
 export default {
   newUser,
   findByEmail,
@@ -86,4 +98,5 @@ export default {
   addRefreshToken,
   removeRefreshToken,
   addSharedVideo,
+  getSharedVideoList,
 };

@@ -1,21 +1,20 @@
-import { Layout, LayoutProps, ShareVideoForm } from "@/components";
+import {
+  Layout,
+  LayoutProps,
+  ShareVideoForm,
+  VideoItem,
+  YoutubeEmbed,
+} from "@/components";
 import { AuthContext } from "@/contexts/authContext";
 import api from "@/utils/api";
+import { LocalStorage } from "@/utils/localStorage";
 import withAuth from "@/utils/withAuth";
 import { GetServerSideProps } from "next";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
+import { Video } from "./index";
 
-interface Video {
-  _id: string;
-  embedId: string;
-  userId: string;
-  title: string;
-  thumbnailUrl: string;
-  sharedDate: Date;
-}
-
-function Dashboard() {
+const Dashboard: React.FC = () => {
   const { userData } = useContext(AuthContext);
   const userId = userData?._id || "";
   const [sharedList, setSharedList] = useState<Video[]>([]);
@@ -31,10 +30,14 @@ function Dashboard() {
         {
           _id: v4(),
           embedId,
-          userId,
           title,
           thumbnailUrl,
-          sharedDate: new Date(),
+          sharedDate: new Date().toString(),
+          user: {
+            _id: "649554e7ef95a1a2043133b9",
+            username: "user 2",
+            email: "user2@email.com",
+          },
         },
       ]);
 
@@ -43,15 +46,37 @@ function Dashboard() {
     []
   );
 
+  useEffect(() => {
+    const fetchSharedVideos = async () => {
+      try {
+        const userId = LocalStorage.get("_id");
+
+        const response: { user: { sharedVideos: Video[] } } = await api.get(
+          `/video/user/${userId}`
+        );
+
+        console.log({ response });
+
+        if (response.user.sharedVideos.length) {
+          setSharedList(response.user.sharedVideos);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchSharedVideos();
+  }, []);
+
   return (
     <Layout {...layoutProps}>
       <ShareVideoForm onAddSharedVideo={onAddSharedVideoHandler} />
-      {/* {sharedList.map((item) => (
-        <YoutubeEmbed embedId={item.embedId} key={item._id} />
-      ))} */}
+      {sharedList.map((item) => (
+        <VideoItem {...item} />
+      ))}
     </Layout>
   );
-}
+};
 
 export default withAuth(Dashboard);
 

@@ -14,6 +14,14 @@ router.post(
 );
 
 router.get(
+  "/user/:id",
+  requiredSignIn,
+  VideoMiddleware.paramGetUserSharedVideos,
+  requestValidation,
+  VideoController.getUserSharedVideos
+);
+
+router.get(
   "/",
   VideoMiddleware.bodyGetListSharedVideo,
   requestValidation,

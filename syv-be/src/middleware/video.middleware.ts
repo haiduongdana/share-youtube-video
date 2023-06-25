@@ -20,8 +20,13 @@ const paramGetSharedVideo = [
   param("id").isMongoId().withMessage("Id is required"),
 ];
 
+const paramGetUserSharedVideos = [
+  param("id").isMongoId().withMessage("Id is required"),
+];
+
 export default {
   bodyAddSharedVideo,
   bodyGetListSharedVideo,
   paramGetSharedVideo,
+  paramGetUserSharedVideos,
 };
