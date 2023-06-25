@@ -23,15 +23,15 @@ router.post(
   "/refresh",
   AuthMiddleware.bodyRefreshAccessTokenValidation,
   requestValidation,
-  requiredSignIn,
+  // requiredSignIn,
   AuthController.refreshAccessToken
 );
 
 router.post(
   "/logout",
+  requiredSignIn,
   AuthMiddleware.bodyLogOutValidation,
   requestValidation,
-  requiredSignIn,
   AuthController.logOut
 );
 

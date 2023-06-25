@@ -7,7 +7,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   async (config) => {
-    if (config.url === "/login" || config.url === "/signup") {
+    if (config.url?.includes("auth") || config.url === "/video") {
       return Promise.resolve(config);
     }
 
@@ -36,10 +36,28 @@ api.interceptors.response.use(
     if (
       error.response &&
       error.response.status === 401 &&
-      error.response.data.message === "Access token has expired"
+      error.response.data.error === "Access token has expired"
     ) {
       try {
-        const response = await axios.post("/auth/refresh-token");
+        const _id = LocalStorage.get("_id");
+        const accessToken = LocalStorage.get("accessToken");
+
+        // const response = await axios.post(
+        //   "http://localhost:8080/api/auth/refresh",
+        //   { _id },
+        //   {
+        //     headers: {
+        //       Authorization: `Bearer ${accessToken}`,
+        //     },
+        //   }
+        // );
+        const response = await api.post(
+          "/auth/refresh",
+          { _id }
+          // { withCredentials: true }
+        );
+
+        console.log({ response });
 
         LocalStorage.set("accessToken", response.data.accessToken);
 
@@ -48,8 +66,9 @@ api.interceptors.response.use(
         ] = `Bearer ${response.data.accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
-        window.location.href = "/login";
-        return Promise.reject(refreshError);
+        console.log({ refreshError });
+        // window.location.href = "/login";
+        // return Promise.reject(refreshError);
       }
     }
 

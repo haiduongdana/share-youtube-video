@@ -20,4 +20,11 @@ router.get(
   VideoController.getListSharedVideo
 );
 
+router.get(
+  "/:id",
+  VideoMiddleware.paramGetSharedVideo,
+  requestValidation,
+  VideoController.getSharedVideo
+);
+
 export { router as videoRouter };

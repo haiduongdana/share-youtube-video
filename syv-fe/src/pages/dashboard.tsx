@@ -1,13 +1,8 @@
-import {
-  Layout,
-  LayoutProps,
-  ShareVideoForm,
-  YoutubeEmbed,
-} from "@/components";
+import { Layout, LayoutProps, ShareVideoForm } from "@/components";
 import { AuthContext } from "@/contexts/authContext";
+import api from "@/utils/api";
 import withAuth from "@/utils/withAuth";
 import { GetServerSideProps } from "next";
-import { useI18n } from "next-localization";
 import { useCallback, useContext, useState } from "react";
 import { v4 } from "uuid";
 
@@ -21,7 +16,6 @@ interface Video {
 }
 
 function Dashboard() {
-  const { t } = useI18n();
   const { userData } = useContext(AuthContext);
   const userId = userData?._id || "";
   const [sharedList, setSharedList] = useState<Video[]>([]);
@@ -31,7 +25,7 @@ function Dashboard() {
   };
 
   const onAddSharedVideoHandler = useCallback(
-    (embedId: string, title: string, thumbnailUrl: string) => {
+    async (embedId: string, title: string, thumbnailUrl: string) => {
       setSharedList((sharedList) => [
         ...sharedList,
         {
@@ -43,6 +37,8 @@ function Dashboard() {
           sharedDate: new Date(),
         },
       ]);
+
+      await api.post("/video/add", { embedId, userId, title, thumbnailUrl });
     },
     []
   );
@@ -50,9 +46,9 @@ function Dashboard() {
   return (
     <Layout {...layoutProps}>
       <ShareVideoForm onAddSharedVideo={onAddSharedVideoHandler} />
-      {sharedList.map((item) => (
+      {/* {sharedList.map((item) => (
         <YoutubeEmbed embedId={item.embedId} key={item._id} />
-      ))}
+      ))} */}
     </Layout>
   );
 }

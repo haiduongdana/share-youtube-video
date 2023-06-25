@@ -49,7 +49,7 @@ export default function App({
               <I18nProvider lngDict={{ ...lngDict }} locale={locale}>
                 <React.Fragment>
                   <Component {...pageProps} />
-                  <ToastContainer />
+                  <ToastContainer position="bottom-right" />
                 </React.Fragment>
               </I18nProvider>
             </ThemeProvider>

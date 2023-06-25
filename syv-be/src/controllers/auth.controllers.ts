@@ -39,7 +39,10 @@ const logIn = wrapAsync(
 
     const { _id, username } = user;
 
-    const accessToken = generateToken({ _id, username, email }, 3 * 60 * 1000); // 3 mins
+    const accessToken = generateToken(
+      { _id, username, email },
+      60 * 60 * 30 * 1000
+    );
     const tokenId = v4();
     const refreshToken = generateToken(
       { _id, username, email, tokenId },

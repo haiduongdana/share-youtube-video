@@ -1,11 +1,8 @@
 import { Layout, LayoutProps } from "@/components";
 import { LoginForm } from "@/components";
 import { GetServerSideProps } from "next";
-import { useI18n } from "next-localization";
 
 export default function Login() {
-  const { t } = useI18n();
-
   const layoutProps: LayoutProps = {
     seoTitle: "Login",
   };

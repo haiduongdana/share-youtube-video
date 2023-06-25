@@ -1,4 +1,4 @@
-export interface YoutubeEmbedProps {
+export interface VideoItemProps {
   _id: string;
   embedId: string;
   title: string;

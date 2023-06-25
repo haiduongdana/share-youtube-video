@@ -38,8 +38,6 @@ const ShareVideoForm: React.FC<ShareVideoFormProps> = ({
       const title = response?.title;
       const thumbnailUrl = response?.thumbnailUrl;
 
-      console.log({ thumbnailUrl });
-
       onAddSharedVideo(embedId, title, thumbnailUrl);
 
       reset();

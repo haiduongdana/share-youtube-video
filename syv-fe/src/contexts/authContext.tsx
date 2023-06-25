@@ -1,3 +1,4 @@
+import { LocalStorage } from "@/utils/localStorage";
 import { createContext, useState } from "react";
 
 export const AuthContext = createContext<{
@@ -7,11 +8,17 @@ export const AuthContext = createContext<{
     _id?: string;
   };
   isLoggedIn: boolean;
-  login: (userData: { username: string; email: string; _id: string }) => void;
+  login: (
+    userData: { username: string; email: string; _id: string },
+    accessToken: string
+  ) => void;
   logout: () => void;
 }>({
   isLoggedIn: false,
-  login: (userData: { username: string; email: string; _id: string }) => {},
+  login: (
+    userData: { username: string; email: string; _id: string },
+    accessToken: string
+  ) => {},
   logout: () => {},
 });
 
@@ -27,16 +34,21 @@ export const AuthContextProvider = ({
     _id?: string;
   }>({});
 
-  const login = ({
-    username,
-    email,
-    _id,
-  }: {
-    username: string;
-    email: string;
-    _id: string;
-  }) => {
+  const login = (
+    {
+      username,
+      email,
+      _id,
+    }: {
+      username: string;
+      email: string;
+      _id: string;
+    },
+    accessToken: string
+  ) => {
     setIsLoggedIn(true);
+    LocalStorage.set("accessToken", accessToken);
+    LocalStorage.set("_id", _id);
     setUserData({ username, email, _id });
   };
 
@@ -44,6 +56,8 @@ export const AuthContextProvider = ({
   const logout = () => {
     setIsLoggedIn(false);
     setUserData({});
+    LocalStorage.remove("_id");
+    LocalStorage.remove("accessToken");
   };
 
   // Provide the auth methods and state to the components

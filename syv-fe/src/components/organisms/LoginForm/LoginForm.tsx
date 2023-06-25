@@ -39,7 +39,7 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
     try {
       const response: Response = await api.post("/auth/login", data);
       toast.success(t(LANG.LOG_IN_SUCCESS));
-      login(response.user);
+      login(response.user, response.accessToken);
       router.push("/");
     } catch (err) {
       const keys: string[] = extractKeywordFromErrorMessage(err as string);

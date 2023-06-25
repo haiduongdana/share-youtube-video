@@ -1,4 +1,4 @@
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 
 const bodyAddSharedVideo = [
   body("embedId").isString().withMessage("EmbedId is required"),
@@ -16,7 +16,12 @@ const bodyGetListSharedVideo = [
     .withMessage("pageNumber must be greater than or equal to 1"),
 ];
 
+const paramGetSharedVideo = [
+  param("id").isMongoId().withMessage("Id is required"),
+];
+
 export default {
   bodyAddSharedVideo,
   bodyGetListSharedVideo,
+  paramGetSharedVideo,
 };

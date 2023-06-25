@@ -49,4 +49,20 @@ const getListSharedVideo = wrapAsync(
   }
 );
 
-export default { addSharedVideo, getListSharedVideo };
+const getSharedVideo = wrapAsync(
+  async (req: Request, res: Response, next: NextFunction) => {
+    const { id } = req.params;
+
+    const sharedVideo = await VideoService.getSharedVideo(id);
+
+    // @ts-ignore
+    // eslint-disable-next-line no-unsafe-optional-chaining
+    const { userId, ...rest } = sharedVideo?.toObject();
+
+    return res.status(StatusCodes.OK).json({
+      sharedVideo: { ...rest, user: userId },
+    });
+  }
+);
+
+export default { addSharedVideo, getListSharedVideo, getSharedVideo };

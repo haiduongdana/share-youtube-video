@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from "@storybook/react";
-import YoutubeEmbed from "./YoutubeEmbed";
+import VideoItem from "./VideoItem";
 
 const meta = {
-  title: "molecules/YoutubeEmbed",
-  component: YoutubeEmbed,
+  title: "molecules/VideoItem",
+  component: VideoItem,
   tags: ["autodocs"],
   argTypes: {},
   args: {
@@ -19,7 +19,7 @@ const meta = {
       email: "user2@email.com",
     },
   },
-} satisfies Meta<typeof YoutubeEmbed>;
+} satisfies Meta<typeof VideoItem>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

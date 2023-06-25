@@ -1,11 +1,24 @@
 import React from "react";
 import { YoutubeEmbedProps } from "./YoutubeEmbed.types";
-import { Wrapper } from "./YoutubeEmbed.styled";
+import { Title, Wrapper } from "./YoutubeEmbed.styled";
 import { Container } from "@/components/atoms";
+import { formatDate } from "@/utils/date";
 
-const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({ embedId }) => {
+const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({
+  _id,
+  embedId,
+  sharedDate,
+  thumbnailUrl,
+  title,
+  user,
+}) => {
   return (
-    <Container width="100%" display="flex" gap="12px">
+    <Container width="100%">
+      <Title>{title}</Title>
+      <p>User: {user.username}</p>
+      <p>Email: {user.email}</p>
+      <p>Shared at: {formatDate(sharedDate)}</p>
+
       <Wrapper>
         <iframe
           width="853"

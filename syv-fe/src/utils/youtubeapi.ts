@@ -7,10 +7,11 @@ export const getYouTubeInfo = async (url: string) => {
     return await fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
+        console.log({ data });
         // Extract the embed ID and title from the API response
         const embedId = data.items[0].id;
         const title = data.items[0].snippet.title;
-        const thumbnailUrl = data.items[0].snippet.thumbnails.default.url;
+        const thumbnailUrl = data.items[0].snippet.thumbnails.medium.url;
 
         return { embedId, title, thumbnailUrl };
       })

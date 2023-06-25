@@ -15,3 +15,8 @@ export const Wrapper = styled.div`
     position: absolute;
   }
 `;
+
+export const Title = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+`;

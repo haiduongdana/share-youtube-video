@@ -1,22 +1,42 @@
-import { Layout, LayoutProps, YoutubeEmbed } from "@/components";
-import { getYouTubeInfo } from "@/utils/youtubeapi";
+import { Layout, LayoutProps, VideoItem } from "@/components";
+import api from "@/utils/api";
 import { GetServerSideProps } from "next";
-import { useI18n } from "next-localization";
 
-export default function Home() {
-  const { t } = useI18n();
+export interface Video {
+  _id: string;
+  embedId: string;
+  title: string;
+  thumbnailUrl: string;
+  sharedDate: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+  user: {
+    _id: string;
+    username: string;
+    email: string;
+  };
+}
 
+interface Props {
+  sharedVideos: Video[];
+}
+
+const Home: React.FC<Props> = ({ sharedVideos }) => {
   const layoutProps: LayoutProps = {
     seoTitle: "Youtube Video Sharing App",
   };
 
   return (
     <Layout {...layoutProps}>
-      <YoutubeEmbed embedId="6TBPQ10UxEM" />
-      <YoutubeEmbed embedId="6TBPQ10UxEM" />
+      {sharedVideos.map((item) => (
+        <VideoItem {...item} />
+      ))}
     </Layout>
   );
-}
+};
+
+export default Home;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { locale, params } = ctx;
@@ -25,9 +45,14 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   const lngDict = await import(`../../public/lang/${lan}.json`);
 
+  const response: { message: string; videos: Video[] } = await api.get(
+    "/video"
+  );
+
   return {
     props: {
       lngDict: JSON.parse(JSON.stringify(lngDict)),
+      sharedVideos: response.videos,
     },
   };
 };
