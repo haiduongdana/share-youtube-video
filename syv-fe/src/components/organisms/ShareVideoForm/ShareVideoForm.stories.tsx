@@ -1,13 +1,13 @@
 import { Meta, StoryObj } from "@storybook/react";
-import LoginForm from "./LoginForm";
+import ShareVideoForm from "./ShareVideoForm";
 
 const meta = {
-  title: "molecules/LoginForm",
-  component: LoginForm,
+  title: "molecules/ShareVideoForm",
+  component: ShareVideoForm,
   tags: ["autodocs"],
   argTypes: {},
   args: {},
-} satisfies Meta<typeof LoginForm>;
+} satisfies Meta<typeof ShareVideoForm>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

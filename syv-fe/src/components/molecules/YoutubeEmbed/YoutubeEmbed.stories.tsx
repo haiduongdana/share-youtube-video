@@ -1,13 +1,15 @@
 import { Meta, StoryObj } from "@storybook/react";
-import LoginForm from "./LoginForm";
+import YoutubeEmbed from "./YoutubeEmbed";
 
 const meta = {
-  title: "molecules/LoginForm",
-  component: LoginForm,
+  title: "molecules/YoutubeEmbed",
+  component: YoutubeEmbed,
   tags: ["autodocs"],
   argTypes: {},
-  args: {},
-} satisfies Meta<typeof LoginForm>;
+  args: {
+    embedId: "rokGy0huYEA",
+  },
+} satisfies Meta<typeof YoutubeEmbed>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

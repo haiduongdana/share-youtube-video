@@ -1,4 +1,5 @@
-import { Layout, LayoutProps } from "@/components";
+import { Layout, LayoutProps, YoutubeEmbed } from "@/components";
+import { getYouTubeInfo } from "@/utils/youtubeapi";
 import { GetServerSideProps } from "next";
 import { useI18n } from "next-localization";
 
@@ -9,7 +10,12 @@ export default function Home() {
     seoTitle: "Youtube Video Sharing App",
   };
 
-  return <Layout {...layoutProps}>Youtube Video Sharing App</Layout>;
+  return (
+    <Layout {...layoutProps}>
+      <YoutubeEmbed embedId="6TBPQ10UxEM" />
+      <YoutubeEmbed embedId="6TBPQ10UxEM" />
+    </Layout>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {

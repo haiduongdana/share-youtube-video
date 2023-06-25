@@ -99,10 +99,10 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
         <Container
           display="flex"
           width="100%"
-          gap="3px"
+          gap="4px"
           justifyContent="flex-end"
         >
-          {t("already_have_account")}{" "}
+          {t("already_have_account")}
           <Link href="/signup">{t(LANG.SIGN_UP)}</Link>
         </Container>
       </Container>

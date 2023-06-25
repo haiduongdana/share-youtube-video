@@ -9,12 +9,14 @@ import { ThemeContext } from "@/contexts/themeContext";
 import { LangContext } from "@/contexts/langContext";
 import { useI18n } from "next-localization";
 import { LANG } from "@/constants";
+import { useRouter } from "next/router";
 
 const Header: React.FC<HeaderProps> = ({}) => {
-  const { isLoggedIn, userData } = useContext(AuthContext);
+  const { isLoggedIn, userData, logout } = useContext(AuthContext);
   const { theme, themeToggle } = useContext(ThemeContext);
   const { lang, changeLang } = useContext(LangContext);
   const { t } = useI18n();
+  const router = useRouter();
 
   const onChangeLangHandler = useCallback(() => {
     if (lang === "en") {
@@ -23,6 +25,11 @@ const Header: React.FC<HeaderProps> = ({}) => {
       changeLang("en");
     }
   }, [lang, changeLang]);
+
+  const onLogoutHandler = useCallback(() => {
+    logout();
+    router.push("/");
+  }, []);
 
   return (
     <HeaderContainer>
@@ -47,12 +54,13 @@ const Header: React.FC<HeaderProps> = ({}) => {
           {!isLoggedIn && <HeaderItem link="/signup" title={t(LANG.SIGN_UP)} />}
           {!isLoggedIn && <HeaderItem link="/login" title={t(LANG.LOG_IN)} />}
           {isLoggedIn && (
-            <HeaderItem
-              link="/dashboard"
-              title={`${userData?.username} ${t(LANG.DASHBOARD)}`}
-            />
+            <HeaderItem link="/dashboard" title={t(LANG.DASHBOARD)} />
           )}
-          {isLoggedIn && <HeaderItem link="/logout" title={t(LANG.LOG_OUT)} />}
+          {isLoggedIn && (
+            <Button variant="text" onClick={onLogoutHandler}>
+              {t(LANG.LOG_OUT).toUpperCase()}
+            </Button>
+          )}
         </RouteContainer>
       </Container>
     </HeaderContainer>

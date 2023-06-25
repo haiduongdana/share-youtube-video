@@ -2,11 +2,11 @@ import { Layout, LayoutProps, SignUpForm } from "@/components";
 import { GetServerSideProps } from "next";
 import { useI18n } from "next-localization";
 
-export default function Home() {
+export default function SignUp() {
   const { t } = useI18n();
 
   const layoutProps: LayoutProps = {
-    seoTitle: "Youtube Video Sharing App",
+    seoTitle: "Sign Up",
   };
 
   return (
