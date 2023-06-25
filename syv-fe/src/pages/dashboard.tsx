@@ -6,7 +6,6 @@ import {
 } from "@/components";
 import { AuthContext } from "@/contexts/authContext";
 import withAuth from "@/utils/withAuth";
-import { getYouTubeInfo } from "@/utils/youtubeapi";
 import { GetServerSideProps } from "next";
 import { useI18n } from "next-localization";
 import { useCallback, useContext, useState } from "react";
@@ -17,6 +16,7 @@ interface Video {
   embedId: string;
   userId: string;
   title: string;
+  thumbnailUrl: string;
   sharedDate: Date;
 }
 
@@ -31,7 +31,7 @@ function Dashboard() {
   };
 
   const onAddSharedVideoHandler = useCallback(
-    (embedId: string, title: string) => {
+    (embedId: string, title: string, thumbnailUrl: string) => {
       setSharedList((sharedList) => [
         ...sharedList,
         {
@@ -39,6 +39,7 @@ function Dashboard() {
           embedId,
           userId,
           title,
+          thumbnailUrl,
           sharedDate: new Date(),
         },
       ]);

@@ -36,10 +36,10 @@ api.interceptors.response.use(
     if (
       error.response &&
       error.response.status === 401 &&
-      error.response.data.message === "Token expired"
+      error.response.data.message === "Access token has expired"
     ) {
       try {
-        const response = await axios.post("/refresh-token");
+        const response = await axios.post("/auth/refresh-token");
 
         LocalStorage.set("accessToken", response.data.accessToken);
 

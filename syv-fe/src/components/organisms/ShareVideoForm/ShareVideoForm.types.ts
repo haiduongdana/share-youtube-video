@@ -1,5 +1,9 @@
 export interface ShareVideoFormProps {
-  onAddSharedVideo: (embedId: string, title: string) => void;
+  onAddSharedVideo: (
+    embedId: string,
+    title: string,
+    thumbnailUrl: string
+  ) => void;
 }
 
 export type Inputs = {

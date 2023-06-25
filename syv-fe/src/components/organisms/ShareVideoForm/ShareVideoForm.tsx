@@ -36,8 +36,11 @@ const ShareVideoForm: React.FC<ShareVideoFormProps> = ({
       const response = await getYouTubeInfo(data.url!);
       const embedId = response?.embedId;
       const title = response?.title;
+      const thumbnailUrl = response?.thumbnailUrl;
 
-      onAddSharedVideo(embedId, title);
+      console.log({ thumbnailUrl });
+
+      onAddSharedVideo(embedId, title, thumbnailUrl);
 
       reset();
     } catch (err) {

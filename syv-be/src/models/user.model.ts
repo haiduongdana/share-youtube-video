@@ -34,6 +34,12 @@ const UserSchema = new mongoose.Schema<User>(
         ref: "RefreshToken",
       },
     ],
+    sharedVideos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Video",
+      },
+    ],
   },
   { timestamps: true }
 );

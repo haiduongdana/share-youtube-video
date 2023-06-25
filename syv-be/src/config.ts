@@ -33,3 +33,5 @@ export const ACCESS_LOG_STREAM_INTERVAL =
 export const SESSION_SECRET = process.env.SESSION_SECRET;
 
 export const DEFAULT_PHOTO = process.env.DEFAULT_PHOTO;
+
+export const VIDEO_PER_PAGE = 20;

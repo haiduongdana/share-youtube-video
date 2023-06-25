@@ -1,4 +1,5 @@
 import { RefreshToken } from "./refresh-token";
+import { Video } from "./video.types";
 
 export interface User {
   _id: string;
@@ -9,6 +10,7 @@ export interface User {
   resetPasswordLink: string;
   isVerified: boolean;
   refreshTokens: RefreshToken[];
+  sharedVideos: Video[];
   authenticate: (plainPassword: string) => boolean;
   encryptPassword: (password: string) => string;
 }

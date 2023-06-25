@@ -39,9 +39,12 @@ const logIn = wrapAsync(
 
     const { _id, username } = user;
 
-    const accessToken = generateToken({ _id, username, email });
+    const accessToken = generateToken({ _id, username, email }, 3 * 60 * 1000); // 3 mins
     const tokenId = v4();
-    const refreshToken = generateToken({ _id, username, email, tokenId });
+    const refreshToken = generateToken(
+      { _id, username, email, tokenId },
+      24 * 60 * 60 * 30 * 1000 // 30 days
+    );
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,
@@ -69,12 +72,15 @@ const refreshAccessToken = wrapAsync(
     const user = await UserService.findById(_id);
 
     const tokenId = v4();
-    const refreshToken = generateToken({
-      _id,
-      username: user.username,
-      email: user.email,
-      tokenId,
-    });
+    const refreshToken = generateToken(
+      {
+        _id,
+        username: user.username,
+        email: user.email,
+        tokenId,
+      },
+      24 * 60 * 60 * 30 * 1000 // 30 days
+    );
 
     res.cookie("refreshToken", refreshToken, {
       httpOnly: true,

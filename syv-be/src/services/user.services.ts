@@ -45,6 +45,19 @@ const addRefreshToken = async (
   );
 };
 
+const addSharedVideo = async (
+  userId: string,
+  videoId: string
+): Promise<User | null> => {
+  return await UserModel.findByIdAndUpdate(
+    userId,
+    {
+      $push: { sharedVideos: videoId },
+    },
+    { new: true, useFindAndModify: false }
+  );
+};
+
 const removeRefreshToken = async (
   userId: string,
   refreshToken: string
@@ -72,4 +85,5 @@ export default {
   findById,
   addRefreshToken,
   removeRefreshToken,
+  addSharedVideo,
 };
