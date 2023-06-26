@@ -28,7 +28,7 @@ export const RouteContainer = styled.div`
     @media screen and (max-width: 860px) {
         position: absolute;
         top: 62px;
-        right: 1rem;
+        right: 15px;
         flex-direction: column;
         background-color: #F0F0F0;
         min-width: 180px;
