@@ -11,5 +11,6 @@
   "submit": "Submit",
   "already_have_account": "Already have account",
   "sign_up_success": "Sign Up Successfully!",
-  "log_in_success": "Log In Successfully!"
+  "log_in_success": "Log In Successfully!",
+  "no_videos_found": "No videos found!"
 }

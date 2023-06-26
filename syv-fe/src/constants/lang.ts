@@ -12,4 +12,5 @@ export const LANG = {
   ALREADY_HAVE_ACCOUNT: "already_have_account",
   SIGN_UP_SUCCESS: "sign_up_success",
   LOG_IN_SUCCESS: "log_in_success",
+  NO_VIDEOS_FOUND: "no_videos_found",
 };

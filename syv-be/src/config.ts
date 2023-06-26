@@ -34,4 +34,4 @@ export const SESSION_SECRET = process.env.SESSION_SECRET;
 
 export const DEFAULT_PHOTO = process.env.DEFAULT_PHOTO;
 
-export const VIDEO_PER_PAGE = 20;
+export const VIDEO_PER_PAGE = 10;

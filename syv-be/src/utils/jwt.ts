@@ -4,6 +4,16 @@ import { JWT_LIFETIME, JWT_SECRET } from "../config";
 import wrapAsync from "./wrap-async";
 import { UnauthenticatedError } from "../errors";
 
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+};
+
+export interface _Request extends Request {
+  user?: User;
+}
+
 export const generateToken = (
   payload: Record<string, unknown>,
   expires?: string | number
@@ -18,7 +28,7 @@ export const verifyToken = (token: string) => {
 };
 
 export const requiredSignIn = wrapAsync(
-  (req: Request, res: Response, next: NextFunction) => {
+  (req: _Request, res: Response, next: NextFunction) => {
     const authorizationHeader = req.headers.authorization;
 
     if (!authorizationHeader || !authorizationHeader.startsWith("Bearer ")) {
@@ -35,6 +45,8 @@ export const requiredSignIn = wrapAsync(
           throw new UnauthenticatedError("Invalid access token");
         }
       }
+
+      req.user = decoded as User;
 
       next();
     });

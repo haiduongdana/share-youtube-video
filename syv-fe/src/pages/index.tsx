@@ -27,7 +27,7 @@ const Home: React.FC<Props> = ({ sharedVideos }) => {
   return (
     <Layout {...layoutProps}>
       {sharedVideos.map((item) => (
-        <VideoItem {...item} />
+        <VideoItem {...item} key={item._id} />
       ))}
     </Layout>
   );

@@ -2,6 +2,8 @@ import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import wrapAsync from "../utils/wrap-async";
 import { UserService, VideoService } from "../services";
+import { _Request } from "../utils/jwt";
+import { UnauthorizedError } from "../errors";
 
 const addSharedVideo = wrapAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -66,8 +68,12 @@ const getSharedVideo = wrapAsync(
 );
 
 const getUserSharedVideos = wrapAsync(
-  async (req: Request, res: Response, next: NextFunction) => {
-    const { id } = req.params;
+  async (req: _Request, res: Response, next: NextFunction) => {
+    const id = req.user?._id;
+
+    if (!id) {
+      throw new UnauthorizedError("Unauthorized");
+    }
 
     const user = await UserService.getSharedVideoList(id);
 

@@ -13,13 +13,7 @@ router.post(
   VideoController.addSharedVideo
 );
 
-router.get(
-  "/user/:id",
-  requiredSignIn,
-  VideoMiddleware.paramGetUserSharedVideos,
-  requestValidation,
-  VideoController.getUserSharedVideos
-);
+router.get("/user/videos", requiredSignIn, VideoController.getUserSharedVideos);
 
 router.get(
   "/",

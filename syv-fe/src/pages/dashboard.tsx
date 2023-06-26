@@ -1,4 +1,5 @@
 import {
+  Container,
   Layout,
   LayoutProps,
   ShareVideoForm,
@@ -13,8 +14,11 @@ import { GetServerSideProps } from "next";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { Video } from "./index";
+import { useI18n } from "next-localization";
+import { LANG } from "@/constants";
 
 const Dashboard: React.FC = () => {
+  const { t } = useI18n();
   const { userData } = useContext(AuthContext);
   const userId = userData?._id || "";
   const [sharedList, setSharedList] = useState<Video[]>([]);
@@ -49,13 +53,9 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchSharedVideos = async () => {
       try {
-        const userId = LocalStorage.get("_id");
-
         const response: { user: { sharedVideos: Video[] } } = await api.get(
-          `/video/user/${userId}`
+          `/video/user/videos`
         );
-
-        console.log({ response });
 
         if (response.user.sharedVideos.length) {
           setSharedList(response.user.sharedVideos);
@@ -71,9 +71,18 @@ const Dashboard: React.FC = () => {
   return (
     <Layout {...layoutProps}>
       <ShareVideoForm onAddSharedVideo={onAddSharedVideoHandler} />
-      {sharedList.map((item) => (
-        <VideoItem {...item} />
-      ))}
+      {sharedList.length ? (
+        sharedList.map((item) => <VideoItem {...item} key={item._id} />)
+      ) : (
+        <Container
+          height="200px"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          {t(LANG.NO_VIDEOS_FOUND)}
+        </Container>
+      )}
     </Layout>
   );
 };
