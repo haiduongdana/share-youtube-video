@@ -7,8 +7,6 @@ export const getYouTubeInfo = async (url: string) => {
     return await fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        console.log({ data });
-        // Extract the embed ID and title from the API response
         const embedId = data.items[0].id;
         const title = data.items[0].snippet.title;
         const thumbnailUrl = data.items[0].snippet.thumbnails.medium.url;
@@ -26,7 +24,6 @@ export const getYouTubeInfo = async (url: string) => {
 export const extractVideoId = (url: string) => {
   let videoId = "";
 
-  // Extract the video ID using regular expressions
   const regExp =
     /^(?:https?:\/\/(?:www\.youtube\.com\/watch\?v=|youtu\.be\/))(.*?)(?:\?.*|)$/;
   const match = url.match(regExp);

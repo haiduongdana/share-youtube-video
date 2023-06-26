@@ -14,6 +14,7 @@ import { LangContext } from "@/contexts/langContext";
 import { useLang } from "@/hooks/useLang";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Notifications } from "@/components";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -49,6 +50,7 @@ export default function App({
               <I18nProvider lngDict={{ ...lngDict }} locale={locale}>
                 <React.Fragment>
                   <Component {...pageProps} />
+                  <Notifications />
                   <ToastContainer position="bottom-right" />
                 </React.Fragment>
               </I18nProvider>

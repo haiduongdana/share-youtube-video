@@ -23,7 +23,7 @@ const findByEmail = async (email: string): Promise<User> => {
 };
 
 const findById = async (_id: string): Promise<User> => {
-  const user = await UserModel.findById(_id);
+  const user = await UserModel.findById(_id).select("_id username email");
 
   if (!user) {
     throw new UnauthenticatedError("User not found!");
@@ -84,6 +84,7 @@ const getSharedVideoList = async (userId: string) => {
     .select("_id username email sharedVideos")
     .populate({
       path: "sharedVideos",
+      options: { sort: { createdAt: -1 } },
       populate: {
         path: "userId",
         select: "_id username email",

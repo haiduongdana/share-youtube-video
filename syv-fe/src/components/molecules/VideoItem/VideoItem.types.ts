@@ -9,4 +9,5 @@ export interface VideoItemProps {
     username: string;
     email: string;
   };
+  isLoading?: boolean;
 }

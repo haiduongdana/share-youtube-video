@@ -1,6 +1,11 @@
 import React, { useCallback } from "react";
 import { VideoItemProps } from "./VideoItem.types";
-import { Image, Title, VideoContainer } from "./VideoItem.styled";
+import {
+  Thumbnail,
+  ThumbnailContainer,
+  Title,
+  VideoContainer,
+} from "./VideoItem.styled";
 import { Container } from "@/components/atoms";
 import { formatDate } from "@/utils/date";
 import { useRouter } from "next/router";
@@ -12,6 +17,7 @@ const VideoItem: React.FC<VideoItemProps> = ({
   thumbnailUrl,
   title,
   user,
+  isLoading = false,
 }) => {
   const router = useRouter();
 
@@ -21,7 +27,9 @@ const VideoItem: React.FC<VideoItemProps> = ({
 
   return (
     <VideoContainer onClick={onClickHandler}>
-      <Image data-testid="image-thumb" src={thumbnailUrl} alt={title} />
+      <ThumbnailContainer isLoading={isLoading}>
+        <Thumbnail src={thumbnailUrl} alt={title} />
+      </ThumbnailContainer>
       <Container display="flex" flexDirection="column" gap="4px">
         <Title data-testid="title">{title}</Title>
         <p data-testid="username">Username: {user.username}</p>

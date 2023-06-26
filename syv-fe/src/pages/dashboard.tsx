@@ -29,23 +29,48 @@ const Dashboard: React.FC = () => {
 
   const onAddSharedVideoHandler = useCallback(
     async (embedId: string, title: string, thumbnailUrl: string) => {
+      const _id = v4();
+
       setSharedList((sharedList) => [
-        ...sharedList,
         {
-          _id: v4(),
+          _id,
           embedId,
           title,
           thumbnailUrl,
           sharedDate: new Date().toString(),
           user: {
-            _id: "649554e7ef95a1a2043133b9",
-            username: "user 2",
-            email: "user2@email.com",
+            _id: userData?._id!,
+            username: userData?.username!,
+            email: userData?.email!,
           },
+          isLoading: true,
         },
+        ...sharedList,
       ]);
 
-      await api.post("/video/add", { embedId, userId, title, thumbnailUrl });
+      const response: { message: string; video: Video } = await api.post(
+        "/video/add",
+        {
+          embedId,
+          userId,
+          title,
+          thumbnailUrl,
+        }
+      );
+
+      setSharedList((sharedList) =>
+        sharedList.map((item) => {
+          if (item._id === _id) {
+            return {
+              ...item,
+              _id: response.video._id,
+              isLoading: false,
+            };
+          }
+
+          return item;
+        })
+      );
     },
     []
   );

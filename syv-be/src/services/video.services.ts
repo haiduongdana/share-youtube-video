@@ -16,6 +16,7 @@ const getListSharedVideo = async (pageNumber = 1) => {
   const skipCount = (pageNumber - 1) * VIDEO_PER_PAGE;
 
   return await VideoModel.find()
+    .sort({ createdAt: -1 })
     .skip(skipCount)
     .limit(VIDEO_PER_PAGE)
     .populate("userId", "_id username email");

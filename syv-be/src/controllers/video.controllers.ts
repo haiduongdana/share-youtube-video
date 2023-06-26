@@ -1,9 +1,11 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
+import { Socket } from "socket.io";
 import wrapAsync from "../utils/wrap-async";
 import { UserService, VideoService } from "../services";
 import { _Request } from "../utils/jwt";
 import { UnauthorizedError } from "../errors";
+import { io } from "../index";
 
 const addSharedVideo = wrapAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -16,7 +18,21 @@ const addSharedVideo = wrapAsync(
       userId,
     });
 
+    const user = await UserService.findById(userId);
+
     await UserService.addSharedVideo(userId, sharedVideo._id);
+
+    io.emit("newVideo", {
+      message: `${user.username} has shared a video`,
+      video: {
+        _id: sharedVideo._id,
+        embedId,
+        title,
+        thumbnailUrl,
+        sharedDate: sharedVideo.sharedDate,
+        user,
+      },
+    });
 
     res.status(StatusCodes.CREATED).json({
       message: "Shared Video Created",
