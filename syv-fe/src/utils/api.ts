@@ -40,22 +40,8 @@ api.interceptors.response.use(
     ) {
       try {
         const _id = LocalStorage.get("_id");
-        const accessToken = LocalStorage.get("accessToken");
 
-        // const response = await axios.post(
-        //   "http://localhost:8080/api/auth/refresh",
-        //   { _id },
-        //   {
-        //     headers: {
-        //       Authorization: `Bearer ${accessToken}`,
-        //     },
-        //   }
-        // );
-        const response = await api.post(
-          "/auth/refresh",
-          { _id }
-          // { withCredentials: true }
-        );
+        const response = await api.post("/auth/refresh", { _id });
 
         console.log({ response });
 
@@ -66,13 +52,12 @@ api.interceptors.response.use(
         ] = `Bearer ${response.data.accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
-        console.log({ refreshError });
-        // window.location.href = "/login";
-        // return Promise.reject(refreshError);
+        window.location.href = "/login";
+        return Promise.reject(refreshError);
       }
     }
 
-    return Promise.reject(error.response.data.error);
+    return Promise.reject(error.response?.data?.error);
   }
 );
 

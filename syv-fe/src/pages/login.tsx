@@ -1,11 +1,15 @@
 import { Layout, LayoutProps } from "@/components";
 import { LoginForm } from "@/components";
 import { GetServerSideProps } from "next";
+import { useMemo } from "react";
 
 export default function Login() {
-  const layoutProps: LayoutProps = {
-    seoTitle: "Login",
-  };
+  const layoutProps: LayoutProps = useMemo(
+    () => ({
+      seoTitle: "Login",
+    }),
+    []
+  );
 
   return (
     <Layout {...layoutProps}>

@@ -1,4 +1,4 @@
-import { ThemeMode } from "forentor-ui-lib";
+import { ThemeMode } from "@/utils/themes";
 import styled from "styled-components";
 
 export const LayoutWrapper = styled.div`

@@ -1,10 +1,14 @@
 import { Layout, LayoutProps, SignUpForm } from "@/components";
 import { GetServerSideProps } from "next";
+import { useMemo } from "react";
 
 export default function SignUp() {
-  const layoutProps: LayoutProps = {
-    seoTitle: "Sign Up",
-  };
+  const layoutProps: LayoutProps = useMemo(
+    () => ({
+      seoTitle: "Sign Up",
+    }),
+    []
+  );
 
   return (
     <Layout {...layoutProps}>

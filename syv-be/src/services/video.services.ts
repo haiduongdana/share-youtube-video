@@ -22,6 +22,10 @@ const getListSharedVideo = async (pageNumber = 1) => {
     .populate("userId", "_id username email");
 };
 
+const getTotalSharedVideos = async () => {
+  return await VideoModel.countDocuments();
+};
+
 const getSharedVideo = async (id: string) => {
   return await VideoModel.findById(id).populate("userId", "_id username email");
 };
@@ -30,4 +34,5 @@ export default {
   newSharedVideo,
   getListSharedVideo,
   getSharedVideo,
+  getTotalSharedVideos,
 };

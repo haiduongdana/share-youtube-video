@@ -6,6 +6,7 @@ import { UserService, VideoService } from "../services";
 import { _Request } from "../utils/jwt";
 import { UnauthorizedError } from "../errors";
 import { io } from "../index";
+import { VIDEO_PER_PAGE } from "../config";
 
 const addSharedVideo = wrapAsync(
   async (req: Request, res: Response, next: NextFunction) => {
@@ -50,9 +51,12 @@ const addSharedVideo = wrapAsync(
 
 const getListSharedVideo = wrapAsync(
   async (req: Request, res: Response, next: NextFunction) => {
-    const { pageNumber } = req.body || {};
+    const { pageNumber = 1 } = req.query || {};
 
-    const listShared = await VideoService.getListSharedVideo(pageNumber);
+    const listShared = await VideoService.getListSharedVideo(+pageNumber);
+    const totalSharedVideos = await VideoService.getTotalSharedVideos();
+
+    const totalPages = Math.ceil(totalSharedVideos / VIDEO_PER_PAGE);
 
     const _listShared = listShared.map((item) => {
       const { userId, ...rest } = item.toObject();
@@ -63,6 +67,9 @@ const getListSharedVideo = wrapAsync(
     res.status(StatusCodes.OK).json({
       message: "List shared videos",
       videos: _listShared,
+      totalPages,
+      totalSharedVideos,
+      currentPage: pageNumber,
     });
   }
 );
@@ -86,6 +93,7 @@ const getSharedVideo = wrapAsync(
 const getUserSharedVideos = wrapAsync(
   async (req: _Request, res: Response, next: NextFunction) => {
     const id = req.user?._id;
+    const { pageNumber = 1 } = req.query || {};
 
     if (!id) {
       throw new UnauthorizedError("Unauthorized");
@@ -93,17 +101,30 @@ const getUserSharedVideos = wrapAsync(
 
     const user = await UserService.getSharedVideoList(id);
 
+    const totalSharedVideos = user?.sharedVideos.length || 0;
+    const totalPages = Math.ceil(totalSharedVideos / VIDEO_PER_PAGE);
+
+    const sharedVideos = user?.sharedVideos
+      .slice(
+        (+pageNumber - 1) * VIDEO_PER_PAGE,
+        (+pageNumber - 1) * VIDEO_PER_PAGE + VIDEO_PER_PAGE
+      )
+      .map((item) => {
+        // @ts-ignore
+        // eslint-disable-next-line no-unsafe-optional-chaining
+        const { userId, ...rest } = item?.toObject();
+
+        return { ...rest, user: userId };
+      });
+
     res.status(StatusCodes.OK).json({
       user: {
         ...user?.toObject(),
-        sharedVideos: user?.sharedVideos.map((item) => {
-          // @ts-ignore
-          // eslint-disable-next-line no-unsafe-optional-chaining
-          const { userId, ...rest } = item?.toObject();
-
-          return { ...rest, user: userId };
-        }),
+        sharedVideos: undefined,
       },
+      videos: sharedVideos,
+      totalPages,
+      totalSharedVideos,
     });
   }
 );

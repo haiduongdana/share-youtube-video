@@ -1,4 +1,4 @@
-import { ThemeMode } from "forentor-ui-lib";
+import { ThemeMode } from "@/utils/themes";
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`

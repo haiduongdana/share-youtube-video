@@ -3,15 +3,16 @@ import {
   Layout,
   LayoutProps,
   ShareVideoForm,
+  SharedVideoResponse,
   VideoItem,
+  VideoList,
   YoutubeEmbed,
 } from "@/components";
 import { AuthContext } from "@/contexts/authContext";
 import api from "@/utils/api";
-import { LocalStorage } from "@/utils/localStorage";
 import withAuth from "@/utils/withAuth";
 import { GetServerSideProps } from "next";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import { Video } from "./index";
 import { useI18n } from "next-localization";
@@ -22,10 +23,15 @@ const Dashboard: React.FC = () => {
   const { userData } = useContext(AuthContext);
   const userId = userData?._id || "";
   const [sharedList, setSharedList] = useState<Video[]>([]);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(1);
 
-  const layoutProps: LayoutProps = {
-    seoTitle: "Dashboard",
-  };
+  const layoutProps: LayoutProps = useMemo(
+    () => ({
+      seoTitle: "Dashboard",
+    }),
+    []
+  );
 
   const onAddSharedVideoHandler = useCallback(
     async (embedId: string, title: string, thumbnailUrl: string) => {
@@ -75,15 +81,24 @@ const Dashboard: React.FC = () => {
     []
   );
 
+  const onLoadNewPageHandler = useCallback(
+    async (newPage: number): Promise<SharedVideoResponse> => {
+      return await api.get(`/video/user/videos?pageNumber=${newPage}`);
+    },
+    []
+  );
+
   useEffect(() => {
     const fetchSharedVideos = async () => {
       try {
-        const response: { user: { sharedVideos: Video[] } } = await api.get(
+        const response: SharedVideoResponse = await api.get(
           `/video/user/videos`
         );
 
-        if (response.user.sharedVideos.length) {
-          setSharedList(response.user.sharedVideos);
+        if (response.videos.length) {
+          setSharedList(response.videos);
+          setCurrentPage(response.currentPage);
+          setTotalPages(response.totalPages);
         }
       } catch (err) {
         console.log(err);
@@ -97,7 +112,12 @@ const Dashboard: React.FC = () => {
     <Layout {...layoutProps}>
       <ShareVideoForm onAddSharedVideo={onAddSharedVideoHandler} />
       {sharedList.length ? (
-        sharedList.map((item) => <VideoItem {...item} key={item._id} />)
+        <VideoList
+          currentPage={currentPage}
+          totalPages={totalPages}
+          sharedVideos={sharedList}
+          onLoadNewPage={onLoadNewPageHandler}
+        />
       ) : (
         <Container
           height="200px"

@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body, param, query } from "express-validator";
 
 const bodyAddSharedVideo = [
   body("embedId").isString().withMessage("EmbedId is required"),
@@ -7,11 +7,16 @@ const bodyAddSharedVideo = [
   body("userId").isMongoId().withMessage("UserId is required"),
 ];
 
-const bodyGetListSharedVideo = [
-  body("pageNumber")
+const queryGetListSharedVideo = [
+  query("pageNumber")
     .optional()
-    .isNumeric()
-    .withMessage("pageNumber must be a number")
+    .isInt({ min: 1 })
+    .withMessage("pageNumber must be greater than or equal to 1"),
+];
+
+const queryGetUserSharedList = [
+  query("pageNumber")
+    .optional()
     .isInt({ min: 1 })
     .withMessage("pageNumber must be greater than or equal to 1"),
 ];
@@ -22,6 +27,7 @@ const paramGetSharedVideo = [
 
 export default {
   bodyAddSharedVideo,
-  bodyGetListSharedVideo,
+  queryGetListSharedVideo,
   paramGetSharedVideo,
+  queryGetUserSharedList,
 };
