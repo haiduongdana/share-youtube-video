@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Button from "./Button";
-import Arrow from "@/assets/images/arrow.svg";
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
 const meta = {
   title: "atoms/Button",
@@ -93,6 +94,18 @@ const meta = {
     type: "button",
     variant: "outlined",
   },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    const button = await canvas.getByRole('button');
+
+    if (args.isLoading){
+      expect(button).toBeDisabled();
+    }
+    else {
+      await userEvent.click(button);
+      await waitFor(() => expect(args.onClick).toBeCalled());
+    }
+  }
 } satisfies Meta<typeof Button>;
 
 export default meta;

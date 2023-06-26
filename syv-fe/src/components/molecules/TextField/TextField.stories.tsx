@@ -4,6 +4,9 @@ import { TextFieldProps } from "./TextField.types";
 import { TextFieldProps as MuiTextFieldProps } from "@mui/material";
 import React from "react";
 import { AccountBox, AccountCircle } from "@mui/icons-material";
+import { userEvent, within } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
+import { INPUT_SIZE } from "./testing.constant";
 
 const meta = {
   title: "molecules/TextField",
@@ -152,6 +155,71 @@ const meta = {
     name: "textField",
     helperText: "Something went wrong!",
   },
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement);
+    // Testing label and input initial
+    const inputHtml: HTMLInputElement = await canvas.findByLabelText(`${args.label}`);
+
+    // Testing input type
+    expect(inputHtml.name).toBe(args.name)
+    if (args.type == 'number') {
+      await userEvent.type(inputHtml, 'abc');
+      expect(inputHtml.value).toBe('');
+    }
+
+    // Testing placeholder
+    if (args.placeholder) {
+      expect(inputHtml.placeholder).toBe(args.placeholder);
+    }
+
+    // Testing value
+    if (args.value) {
+      expect(inputHtml.value).toBe(args.value);
+    }
+
+    // Testing error
+    if (args.error) {
+      expect(await canvas.findByText(`${args.helperText}`)).toBeVisible()
+    }
+
+    // Testing description
+    if (args.description) {
+      expect(await canvas.findByText(`${args.description}`)).toBeVisible()
+    }
+
+    // Testing adornmentFrontLabel
+    if (args.adornmentFrontLabel) {
+      // Expect icon to be visible
+      const accountCircleIcon = await canvas.findByTestId('AccountCircleIcon')
+      expect(accountCircleIcon).toBeVisible()
+
+      // Expect icon in front
+      const parentElement = inputHtml.parentElement;
+      const accountCircleIconWraper = accountCircleIcon.parentElement;
+      expect(parentElement?.firstChild).toBe(accountCircleIconWraper)
+    }
+
+    // Testing adornmentEndLabel
+    if (args.adornmentEndLabel) {
+      // Expect icon to be visible
+      const accountBoxIcon = await canvas.findByTestId('AccountBoxIcon')
+      expect(accountBoxIcon).toBeVisible()
+
+      // Expect icon in end
+      const parentElement = inputHtml.parentElement;
+      expect(parentElement?.firstChild).toBe(inputHtml)
+    }
+
+    // Testing input size
+    if (args.size) {
+      expect(inputHtml.style.height).toBe(INPUT_SIZE[args.size])
+    }
+    
+    // Testing textarea
+    if (args.rowsMax){
+      expect(inputHtml.getAttribute("rows")).toBe(args.rowsMax);
+    }
+  }
 } satisfies Meta<React.FC<MuiTextFieldProps & TextFieldProps>>;
 
 export default meta;

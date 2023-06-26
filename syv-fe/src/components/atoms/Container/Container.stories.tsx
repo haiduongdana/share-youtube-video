@@ -1,6 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import Container from "./Container";
 import { colorsUtils } from "@/utils/colorsUtils";
+import { userEvent, waitFor, within } from "@storybook/testing-library";
+import { expect } from '@storybook/jest';
 
 const PADDING = "20px";
 const MARGIN = "20px";
@@ -158,6 +160,15 @@ const meta = {
     backgroundColor: colorsUtils.grayLighter,
     border: "1px solid black",
   },
+  play: async ({ canvasElement, args }) => {
+    const container = canvasElement.querySelector("div");
+    expect(container).toHaveStyle({
+      width: args.width,
+      height: args.height,
+      backgroundColor: args.backgroundColor,
+      border: args.border
+    });
+  }
 } satisfies Meta<typeof Container>;
 
 export default meta;
@@ -165,6 +176,13 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},
+  play: async ({ canvasElement, args }) => {
+    const container = canvasElement.querySelector("div");
+    expect(container).toHaveStyle({
+      width: args.width,
+      height: args.height
+    });
+  }
 };
 
 export const PaddingAllScreenSize: Story = {
@@ -174,6 +192,15 @@ export const PaddingAllScreenSize: Story = {
       boxShadow: `inset 0 0 0 ${PADDING} ${colorsUtils.grayLight}`,
     },
   },
+  play: async ({ canvasElement, args }) => {
+    const container = canvasElement.querySelector("div");
+    expect(container).toHaveStyle({
+      width: args.width,
+      height: args.height,
+      padding: PADDING,
+      boxShadow: `inset 0 0 0 ${PADDING} ${colorsUtils.grayLight}`
+    });
+  }
 };
 
 export const MarginAllScreenSize: Story = {
@@ -183,4 +210,13 @@ export const MarginAllScreenSize: Story = {
       boxShadow: `0 0 0 ${MARGIN} ${colorsUtils.grayLight}`,
     },
   },
+  play: async ({ canvasElement, args }) => {
+    const container = canvasElement.querySelector("div");
+    expect(container).toHaveStyle({
+      width: args.width,
+      height: args.height,
+      margin: MARGIN,
+      boxShadow: `0 0 0 ${MARGIN} ${colorsUtils.grayLight}`
+    });
+  }
 };
