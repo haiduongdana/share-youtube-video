@@ -57,6 +57,9 @@ const Container = styled.div.attrs((props) => ({
     // @ts-ignore
     (o: BreakpointString) => breakpointUtils(o)
   )}
+  @media (max-width: 860px) {
+    width: 100% !important;
+  }
 `;
 
 export default Container;

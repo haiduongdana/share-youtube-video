@@ -2,7 +2,7 @@ import React, { useCallback, useContext } from "react";
 import { Inputs, LoginFormProps, Response } from "./LoginForm.types";
 import { Button, Container } from "@/components/atoms";
 import { TextField, TextFieldPassword } from "@/components/molecules";
-import { Title } from "./LoginForm.styled";
+import { AuthFormContainer, Title } from "./LoginForm.styled";
 import { useI18n } from "next-localization";
 import { LANG } from "@/constants";
 import Link from "next/link";
@@ -56,16 +56,7 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <Container
-        width="60%"
-        height="100vh"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-        gap="8px"
-        xsMargin="0 auto"
-      >
+      <AuthFormContainer >
         <Title>{t(LANG.LOG_IN)}</Title>
         <TextField
           label={t(LANG.EMAIL)}
@@ -105,7 +96,7 @@ const LoginForm: React.FC<LoginFormProps> = ({}) => {
           {t("already_have_account")}
           <Link href="/signup">{t(LANG.SIGN_UP)}</Link>
         </Container>
-      </Container>
+      </AuthFormContainer>
     </form>
   );
 };

@@ -8,3 +8,16 @@ export const Title = styled.div`
   text-transform: uppercase;
   color: ${({ theme }: { theme: ThemeMode }) => theme.color.text};
 `;
+
+export const AuthFormContainer = styled.div`
+    width: 100%;
+    max-width: 560px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 auto;
+    padding: 0 24px;
+`;

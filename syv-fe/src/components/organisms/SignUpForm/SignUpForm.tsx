@@ -11,6 +11,7 @@ import api from "@/utils/api";
 import { extractKeywordFromErrorMessage } from "@/utils/helper";
 import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { AuthFormContainer } from "../LoginForm/LoginForm.styled";
 
 const SignUpForm: React.FC<SignUpFormProps> = ({}) => {
   const { t } = useI18n();
@@ -53,16 +54,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({}) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitHandler)}>
-      <Container
-        width="60%"
-        height="100vh"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="column"
-        gap="8px"
-        xsMargin="0 auto"
-      >
+      <AuthFormContainer>
         <Title>{t(LANG.SIGN_UP)}</Title>
         <TextField
           label={t(LANG.USERNAME)}
@@ -115,7 +107,7 @@ const SignUpForm: React.FC<SignUpFormProps> = ({}) => {
           {t("already_have_account")}{" "}
           <Link href="/login">{t(LANG.LOG_IN)}</Link>
         </Container>
-      </Container>
+      </AuthFormContainer>
     </form>
   );
 };

@@ -22,7 +22,31 @@ export const Logo = styled.div`
 `;
 
 export const RouteContainer = styled.div`
-  display: flex;
-  margin-left: auto;
-  gap: ${({ theme }: { theme: ThemeMode }) => theme.spacing.padding.medium};
+    display: flex;
+    margin-left: auto;
+    gap: ${({ theme }: { theme: ThemeMode }) => theme.spacing.padding.medium};
+    @media screen and (max-width: 860px) {
+        position: absolute;
+        top: 62px;
+        right: 1rem;
+        flex-direction: column;
+        background-color: #F0F0F0;
+        min-width: 180px;
+        padding: 24px 24px
+    }
+`;
+
+export const MenuButton = styled.div`
+
+    @media screen and (min-width: 861px) {
+        display: none;
+    }
+`;
+
+export const Row = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
 `;

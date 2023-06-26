@@ -27,15 +27,15 @@ const VideoItem: React.FC<VideoItemProps> = ({
 
   return (
     <VideoContainer onClick={onClickHandler}>
-      <ThumbnailContainer isLoading={isLoading}>
-        <Thumbnail src={thumbnailUrl} alt={title} />
-      </ThumbnailContainer>
-      <Container display="flex" flexDirection="column" gap="4px">
-        <Title data-testid="title">{title}</Title>
-        <p data-testid="username">Username: {user.username}</p>
-        <p data-testid="email">Email: {user.email}</p>
-        <p data-testid="sharedDate">Shared At: {formatDate(sharedDate)}</p>
-      </Container>
+        <ThumbnailContainer isLoading={isLoading}>
+            <Thumbnail src={thumbnailUrl} alt={title} />
+        </ThumbnailContainer>
+        <Container display="flex" flexDirection="column" gap="4px" width="50%">
+            <Title data-testid="title">{title}</Title>
+            <p data-testid="username">Username: {user.username}</p>
+            <p data-testid="email">Email: {user.email}</p>
+            <p data-testid="sharedDate">Shared At: {formatDate(sharedDate)}</p>
+        </Container>
     </VideoContainer>
   );
 };

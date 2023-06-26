@@ -11,3 +11,12 @@ export const LayoutWrapper = styled.div`
   right: 0;
   background: ${({ theme }: { theme: ThemeMode }) => theme.color.background};
 `;
+
+export const PageWrap = styled.div`
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+`;
