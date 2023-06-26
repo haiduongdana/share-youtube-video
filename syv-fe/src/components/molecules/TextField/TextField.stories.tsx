@@ -155,69 +155,82 @@ const meta = {
     name: "textField",
     helperText: "Something went wrong!",
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement, args, step }) => {
     const canvas = within(canvasElement);
-    // Testing label and input initial
     const inputHtml: HTMLInputElement = await canvas.findByLabelText(`${args.label}`);
-
-    // Testing input type
     expect(inputHtml.name).toBe(args.name)
+
     if (args.type == 'number') {
-      await userEvent.type(inputHtml, 'abc');
-      expect(inputHtml.value).toBe('');
+      await step('TextField type number', async () => {
+        expect(inputHtml).toHaveAttribute('type', 'number');
+
+        await userEvent.type(inputHtml, 'abc');
+        expect(inputHtml.value).toBe('');
+
+        await userEvent.type(inputHtml, '123');
+        expect(inputHtml.value).toBe('123');
+      });
     }
 
-    // Testing placeholder
     if (args.placeholder) {
-      expect(inputHtml.placeholder).toBe(args.placeholder);
+      await step('TextField with placeholder', async () => {
+        expect(inputHtml.placeholder).toBe(args.placeholder);
+      });
     }
 
-    // Testing value
     if (args.value) {
-      expect(inputHtml.value).toBe(args.value);
+      await step('TextField with default value', async () => {
+        expect(inputHtml.value).toBe(args.value);
+      });
     }
 
-    // Testing error
     if (args.error) {
-      expect(await canvas.findByText(`${args.helperText}`)).toBeVisible()
+      await step('TextField with error and helpText', async () => {
+        expect(await canvas.findByText(`${args.helperText}`)).toBeVisible()
+      });
     }
 
-    // Testing description
     if (args.description) {
-      expect(await canvas.findByText(`${args.description}`)).toBeVisible()
+      await step('TextField with description', async () => {
+        expect(await canvas.findByText(`${args.description}`)).toBeVisible()
+      });
     }
 
-    // Testing adornmentFrontLabel
     if (args.adornmentFrontLabel) {
-      // Expect icon to be visible
-      const accountCircleIcon = await canvas.findByTestId('AccountCircleIcon')
-      expect(accountCircleIcon).toBeVisible()
+      await step('TextField with Adornment Front', async () => {
+        // Expect icon to be visible
+        const accountCircleIcon = await canvas.findByTestId('AccountCircleIcon')
+        expect(accountCircleIcon).toBeVisible()
 
-      // Expect icon in front
-      const parentElement = inputHtml.parentElement;
-      const accountCircleIconWraper = accountCircleIcon.parentElement;
-      expect(parentElement?.firstChild).toBe(accountCircleIconWraper)
+        // Expect icon in front
+        const parentElement = inputHtml.parentElement;
+        const accountCircleIconWraper = accountCircleIcon.parentElement;
+        expect(parentElement?.firstChild).toBe(accountCircleIconWraper)
+      });
     }
 
-    // Testing adornmentEndLabel
     if (args.adornmentEndLabel) {
-      // Expect icon to be visible
-      const accountBoxIcon = await canvas.findByTestId('AccountBoxIcon')
-      expect(accountBoxIcon).toBeVisible()
+      await step('TextField with Adornment End', async () => {
+        // Expect icon to be visible
+        const accountBoxIcon = await canvas.findByTestId('AccountBoxIcon')
+        expect(accountBoxIcon).toBeVisible()
 
-      // Expect icon in end
-      const parentElement = inputHtml.parentElement;
-      expect(parentElement?.firstChild).toBe(inputHtml)
+        // Expect icon in end
+        const parentElement = inputHtml.parentElement;
+        expect(parentElement?.firstChild).toBe(inputHtml)
+      });
     }
 
-    // Testing input size
     if (args.size) {
-      expect(inputHtml.style.height).toBe(INPUT_SIZE[args.size])
+      await step('TextField with size', async () => {
+        expect(inputHtml.style.height).toBe(INPUT_SIZE[args?.size || "custom"])
+      });
     }
-    
-    // Testing textarea
-    if (args.rowsMax){
-      expect(inputHtml.getAttribute("rows")).toBe(args.rowsMax);
+
+    if (args.rowsMax) {
+      await step('TextField with row max', async () => {
+        expect(inputHtml.getAttribute("rows")).toBe(args.rowsMax);
+      });
     }
   }
 } satisfies Meta<React.FC<MuiTextFieldProps & TextFieldProps>>;

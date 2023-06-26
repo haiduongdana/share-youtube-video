@@ -15,22 +15,26 @@ const meta = {
     label: "Password",
     name: "password",
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement, args, step }) => {
     const canvas = within(canvasElement);
     const inputHtml: HTMLInputElement = await canvas.findByLabelText(`${args.label}`);
     const btnTogglePasswordVisibility = await canvas.getByRole('button');
 
-    expect(inputHtml).toHaveAttribute('type', 'password');
+    await step('Init password input', async () => {
+      expect(inputHtml).toHaveAttribute('type', 'password');
+      await userEvent.type(inputHtml, 'password@1234');
+      expect(inputHtml.value).toBe('password@1234');
+    });
 
-    await userEvent.type(inputHtml, 'password@1234');
-    expect(inputHtml.value).toBe('password@1234');
+    await step('Click show password ', async () => {
+      await userEvent.click(btnTogglePasswordVisibility)
+      expect(inputHtml).toHaveAttribute('type', 'text');
+    });
 
-    // Click toggle password visibility
-    await userEvent.click(btnTogglePasswordVisibility)
-    expect(inputHtml).toHaveAttribute('type', 'text');
-
-    await userEvent.click(btnTogglePasswordVisibility)
-    expect(inputHtml).toHaveAttribute('type', 'password');
+    await step('Click hide password ', async () => {
+      await userEvent.click(btnTogglePasswordVisibility)
+      expect(inputHtml).toHaveAttribute('type', 'password');
+    });
   }
 } satisfies Meta<typeof TextFieldPassword>;
 

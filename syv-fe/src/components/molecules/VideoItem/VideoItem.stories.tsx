@@ -1,5 +1,7 @@
 import { Meta, StoryObj } from "@storybook/react";
 import VideoItem from "./VideoItem";
+import { userEvent, waitFor, within } from '@storybook/testing-library';
+import { expect, jest } from '@storybook/jest';
 
 const meta = {
   title: "molecules/VideoItem",
@@ -19,6 +21,27 @@ const meta = {
       email: "user2@email.com",
     },
   },
+  play: async ({ canvasElement, args, step }) => {
+    const canvas = within(canvasElement);
+  
+    await step('Render image', async () => {
+      const image: HTMLImageElement = canvas.getByRole('img');
+      await expect(image.src).toBe(args.thumbnailUrl)
+    });
+
+    await step('Render title', async () => {
+      await expect(canvas.getByTestId("title").textContent).toBe(args.title);
+    });
+
+    await step('Render user info', async () => {
+      await expect(canvas.getByTestId("email").textContent).toContain(args.user.email);
+      await expect(canvas.getByTestId("username").textContent).toContain(args.user.username);
+    });
+
+    await step('Render shared date', async () => {
+      await expect(canvas.getByTestId("sharedDate").textContent).toContain("25/06/2023");
+    });
+  }
 } satisfies Meta<typeof VideoItem>;
 
 export default meta;
