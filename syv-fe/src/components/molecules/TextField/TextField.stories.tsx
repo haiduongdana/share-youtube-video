@@ -160,6 +160,15 @@ const meta = {
     const inputHtml: HTMLInputElement = await canvas.findByLabelText(`${args.label}`);
     expect(inputHtml.name).toBe(args.name)
 
+    // await step('Typing to input', async () => {
+    //   await userEvent.type(inputHtml, '123');
+    //   expect(inputHtml.value).toBe('123');
+
+    //   const label = canvasElement.querySelector('label')
+    //   console.log(label?.style.top)
+    //   expect(label?.style.top).toBe("-16px")
+    // });
+
     if (args.type == 'number') {
       await step('TextField type number', async () => {
         expect(inputHtml).toHaveAttribute('type', 'number');
@@ -186,7 +195,11 @@ const meta = {
 
     if (args.error) {
       await step('TextField with error and helpText', async () => {
-        expect(await canvas.findByText(`${args.helperText}`)).toBeVisible()
+        const helpText = await canvas.findByText(`${args.helperText}`)
+        expect(helpText).toBeVisible()
+        expect(helpText).toHaveStyle({
+          "color": "#b30909"
+        })
       });
     }
 
