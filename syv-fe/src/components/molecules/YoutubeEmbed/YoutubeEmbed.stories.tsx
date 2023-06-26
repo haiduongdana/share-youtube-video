@@ -1,5 +1,8 @@
 import { Meta, StoryObj } from "@storybook/react";
 import YoutubeEmbed from "./YoutubeEmbed";
+import { within } from '@storybook/testing-library';
+import { expect, jest } from '@storybook/jest';
+
 
 const meta = {
   title: "molecules/YoutubeEmbed",
@@ -19,6 +22,29 @@ const meta = {
       email: "user2@email.com",
     },
   },
+  play: async ({ canvasElement, args, step }) => {
+  
+    const canvas = within(canvasElement);
+ 
+    await step('Render title', async () => {
+      await expect(canvas.getByTestId("title").textContent).toBe(args.title);
+    });
+
+    await step('Render user info', async () => {
+      await expect(canvas.getByTestId("email").textContent).toContain(args.user.email);
+      await expect(canvas.getByTestId("username").textContent).toContain(args.user.username);
+    });
+
+    await step('Render shared date', async () => {
+      await expect(canvas.getByTestId("sharedDate").textContent).toContain("25/06/2023");
+    });
+
+    await step('Render youtube video', async () => {
+      const iframe: HTMLIFrameElement = canvas.getByTestId("iframe");
+      expect(iframe).toBeTruthy();
+    });
+
+  }
 } satisfies Meta<typeof YoutubeEmbed>;
 
 export default meta;

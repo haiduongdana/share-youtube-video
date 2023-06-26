@@ -14,10 +14,10 @@ const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({
 }) => {
   return (
     <Container width="100%">
-      <Title>{title}</Title>
-      <p>User: {user.username}</p>
-      <p>Email: {user.email}</p>
-      <p>Shared at: {formatDate(sharedDate)}</p>
+      <Title data-testid="title">{title}</Title>
+      <p data-testid="username">User: {user.username}</p>
+      <p data-testid="email">Email: {user.email}</p>
+      <p data-testid="sharedDate">Shared at: {formatDate(sharedDate)}</p>
 
       <Wrapper>
         <iframe
@@ -28,6 +28,7 @@ const YoutubeEmbed: React.FC<YoutubeEmbedProps> = ({
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           title="Embedded youtube"
+          data-testid="iframe"
         />
       </Wrapper>
     </Container>
