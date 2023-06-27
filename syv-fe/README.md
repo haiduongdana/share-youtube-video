@@ -1,4 +1,4 @@
-# Introduction: Youtube Video Sharing App
+# 1. Introduction: Youtube Video Sharing App
 The application for frontend using nextjs have functions:
 - Signup, Login
 - Sharing YouTube videos
@@ -6,7 +6,7 @@ The application for frontend using nextjs have functions:
 - Real-time notifications for new video shares
 
 
-# Prerequisites
+# 2. Prerequisites
 
 This project requires NodeJS (version 14.0.0 or later) and yarn or npm. Node and yarn/npm are really easy to install. To make sure you have them available on your machine, try running the following command.
 ```bash
@@ -15,7 +15,7 @@ yarn -v && node -v
 npm -v && node -v
 ```
 
-# Installation & Configuration 
+# 3. Installation & Configuration 
 ## First, clone the repository:
 
 ```bash
@@ -34,7 +34,7 @@ cd syv-fe/
 cp .env.sample .env
 ```
 
-Enter the env variable:
+Enter the .env variable:
 ```
 NEXT_PUBLIC_BASE_URL = 'http://localhost:8080/api'
 
@@ -54,8 +54,7 @@ yarn install
 ```
 
 
-# Running the Application
-Running the Application: How to start the development server, access the application in a web browser, and run the test suite.
+# 4. Running the Application
 ## Start project
 ```bash
 npm dev
@@ -83,11 +82,11 @@ npm test
 yarn test
 ```
 
-# Docker Deployment
+# 5. Docker Deployment
 Docker Deployment: Instructions for deploying the application using Docker, including building the Docker image and running containers 
 
 
-# Usage
+# 6. Usage
 The application will have functions:
 - Signup: User can sign up an account. URL: http://localhost:3000/signup
 
@@ -100,5 +99,5 @@ The application will have functions:
 - Real-time notifications for new video shares: 
 
 
-# Troubleshooting
+# 7. Troubleshooting
 Troubleshooting: Common issues that may arise during setup and their potential solutions.
