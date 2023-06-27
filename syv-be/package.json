@@ -11,7 +11,11 @@
     "dev": "nodemon src/index.ts",
     "lint": "eslint src/**/*.ts",
     "lint:fix": "eslint 'src/**/*.ts' --fix",
-    "pre-commit": "yarn lint:fix && yarn build"
+    "pre-commit": "yarn lint:fix && yarn build",
+    "start": "pm2 start dist/index.js",
+    "docker-start": "pm2-runtime dist/index.js",
+    "docker-build": "docker build -t syv-be .",
+    "docker-run": "docker container run -p 8080:8080 --detach syv-be"
   },
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",

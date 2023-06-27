@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
-import { Socket } from "socket.io";
 import wrapAsync from "../utils/wrap-async";
 import { UserService, VideoService } from "../services";
 import { _Request } from "../utils/jwt";

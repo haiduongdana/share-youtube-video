@@ -4,6 +4,7 @@ import { Video } from "@/pages";
 import { Container } from "@/components/atoms";
 import { Pagination } from "@mui/material";
 import { VideoItem } from "@/components/molecules";
+import { PaginationContainer } from "./VideoList.styled";
 
 const VideoList: React.FC<VideoListProps> = ({
   currentPage = 1,
@@ -45,14 +46,7 @@ const VideoList: React.FC<VideoListProps> = ({
       {videos.map((item) => (
         <VideoItem {...item} key={item._id} />
       ))}
-      <Container
-        width="100%"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        xsPadding="8px 0"
-        lgPadding="12px 0"
-      >
+      <PaginationContainer>
         <Pagination
           count={pageCount}
           page={curPage}
@@ -60,7 +54,7 @@ const VideoList: React.FC<VideoListProps> = ({
           variant="outlined"
           shape="rounded"
         />
-      </Container>
+      </PaginationContainer>
     </Container>
   );
 };
