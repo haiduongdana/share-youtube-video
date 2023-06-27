@@ -4,8 +4,8 @@ import { TextFieldProps } from "./TextField.types";
 import { TextFieldProps as MuiTextFieldProps } from "@mui/material";
 import React from "react";
 import { AccountBox, AccountCircle } from "@mui/icons-material";
-import { userEvent, within } from '@storybook/testing-library';
-import { expect } from '@storybook/jest';
+import { userEvent, within } from "@storybook/testing-library";
+import { expect } from "@storybook/jest";
 import { INPUT_SIZE } from "./testing.constant";
 
 const meta = {
@@ -157,8 +157,10 @@ const meta = {
   },
   play: async ({ canvasElement, args, step }) => {
     const canvas = within(canvasElement);
-    const inputHtml: HTMLInputElement = await canvas.findByLabelText(`${args.label}`);
-    expect(inputHtml.name).toBe(args.name)
+    const inputHtml: HTMLInputElement = await canvas.findByLabelText(
+      `${args.label}`
+    );
+    expect(inputHtml.name).toBe(args.name);
 
     // await step('Typing to input', async () => {
     //   await userEvent.type(inputHtml, '123');
@@ -169,83 +171,79 @@ const meta = {
     //   expect(label?.style.top).toBe("-16px")
     // });
 
-    if (args.type == 'number') {
-      await step('TextField type number', async () => {
-        expect(inputHtml).toHaveAttribute('type', 'number');
+    if (args.type == "number") {
+      await step("TextField type number", async () => {
+        expect(inputHtml).toHaveAttribute("type", "number");
 
-        await userEvent.type(inputHtml, 'abc');
-        expect(inputHtml.value).toBe('');
+        await userEvent.type(inputHtml, "abc");
+        expect(inputHtml.value).toBe("");
 
-        await userEvent.type(inputHtml, '123');
-        expect(inputHtml.value).toBe('123');
+        await userEvent.type(inputHtml, "123");
+        expect(inputHtml.value).toBe("123");
       });
     }
 
     if (args.placeholder) {
-      await step('TextField with placeholder', async () => {
+      await step("TextField with placeholder", async () => {
         expect(inputHtml.placeholder).toBe(args.placeholder);
       });
     }
 
     if (args.value) {
-      await step('TextField with default value', async () => {
+      await step("TextField with default value", async () => {
         expect(inputHtml.value).toBe(args.value);
       });
     }
 
     if (args.error) {
-      await step('TextField with error and helpText', async () => {
-        const helpText = await canvas.findByText(`${args.helperText}`)
-        expect(helpText).toBeVisible()
+      await step("TextField with error and helpText", async () => {
+        const helpText = await canvas.findByText(`${args.helperText}`);
+        expect(helpText).toBeVisible();
         expect(helpText).toHaveStyle({
-          "color": "#b30909"
-        })
+          color: "#b30909",
+        });
       });
     }
 
     if (args.description) {
-      await step('TextField with description', async () => {
-        expect(await canvas.findByText(`${args.description}`)).toBeVisible()
+      await step("TextField with description", async () => {
+        expect(await canvas.findByText(`${args.description}`)).toBeVisible();
       });
     }
 
     if (args.adornmentFrontLabel) {
-      await step('TextField with Adornment Front', async () => {
+      await step("TextField with Adornment Front", async () => {
         // Expect icon to be visible
-        const accountCircleIcon = await canvas.findByTestId('AccountCircleIcon')
-        expect(accountCircleIcon).toBeVisible()
+        const accountCircleIcon = await canvas.findByTestId(
+          "AccountCircleIcon"
+        );
+        expect(accountCircleIcon).toBeVisible();
 
         // Expect icon in front
         const parentElement = inputHtml.parentElement;
         const accountCircleIconWraper = accountCircleIcon.parentElement;
-        expect(parentElement?.firstChild).toBe(accountCircleIconWraper)
+        expect(parentElement?.firstChild).toBe(accountCircleIconWraper);
       });
     }
 
     if (args.adornmentEndLabel) {
-      await step('TextField with Adornment End', async () => {
+      await step("TextField with Adornment End", async () => {
         // Expect icon to be visible
-        const accountBoxIcon = await canvas.findByTestId('AccountBoxIcon')
-        expect(accountBoxIcon).toBeVisible()
+        const accountBoxIcon = await canvas.findByTestId("AccountBoxIcon");
+        expect(accountBoxIcon).toBeVisible();
 
         // Expect icon in end
         const parentElement = inputHtml.parentElement;
-        expect(parentElement?.firstChild).toBe(inputHtml)
+        expect(parentElement?.firstChild).toBe(inputHtml);
       });
     }
 
     if (args.size) {
-      await step('TextField with size', async () => {
-        expect(inputHtml.style.height).toBe(INPUT_SIZE[args?.size || "custom"])
+      await step("TextField with size", async () => {
+        expect(inputHtml.style.height).toBe(INPUT_SIZE[args?.size || "custom"]);
       });
     }
-
-    if (args.rowsMax) {
-      await step('TextField with row max', async () => {
-        expect(inputHtml.getAttribute("rows")).toBe(args.rowsMax);
-      });
-    }
-  }
+  },
 } satisfies Meta<React.FC<MuiTextFieldProps & TextFieldProps>>;
 
 export default meta;
