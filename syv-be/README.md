@@ -1,26 +1,122 @@
-# Introduction
+# Introduction: Youtube Video Sharing App
+The application for backend api using Expressjs will have functions:
+- Authentication API: Signup API, Login API
+- Sharing YouTube videos API
+- Viewing a list of shared videos API
+- Real-time notifications for new video shares
 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project.
 
-# Getting Started
+# Prerequisites
 
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
+This project requires NodeJS (version 14.0.0 or later) and yarn or npm. Node and yarn/npm are really easy to install. To make sure you have them available on your machine, try running the following command.
+```bash
+yarn -v && node -v
+# or
+npm -v && node -v
+```
 
-1. Installation process
-2. Software dependencies
-3. Latest releases
-4. API references
+# Database Setup
+Database Setup: Instructions for setting up the database, running migrations, and seeding data if necessary.
 
-# Build and Test
+# Installation & Configuration 
+## First, clone the repository:
 
-TODO: Describe and show how to build your code and run the tests.
+```bash
+git clone git@github.com:haiduongdana/share-youtube-video.git
+# or
+git clone https://github.com/haiduongdana/share-youtube-video.git
+```
 
-# Contribute
+## Enter the backend project:
+```bash
+cd syv-be/
+```
 
-TODO: Explain how other users and developers can contribute to make your code better.
+## Create environment file:
+```bash
+cp .env.sample .env
+```
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
+Enter the env variable:
+```
+NODE_ENV = dev
 
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+MONGO_URL_DEV = `url database setup in pre-step`
+PORT_DEV = 8080
+CLIENT_URL_DEV = http://localhost:3000
+JWT_SECRET_DEV = <The jwt secret key>
+
+MONGO_URL_PRODUCT = ''
+PORT_PRODUCT = ''
+CLIENT_URL_PRODUCT = ''
+JWT_SECRET_PRODUCT = ''
+
+JWT_LIFETIME = 1d
+SESSION_SECRET = <The jwt secret key>
+
+LOG_FILE = access.log
+ACCESS_LOG_STREAM_INTERVAL = 1d
+
+DEFAULT_PHOTO = default-photo.png
+
+```
+
+
+## Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+
+# Running the Application
+Running the Application: How to start the development server, access the application in a web browser, and run the test suite.
+## Start project
+```bash
+npm dev
+# or
+yarn dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+
+## Run test
+```bash
+npm test
+# or
+yarn test
+```
+
+# Docker Deployment
+Docker Deployment: Instructions for deploying the application using Docker, including building the Docker image and running containers 
+
+
+# Usage
+Note: Assuming PORT_DEV = 8080
+## Authentication API:
+- Signup API. URL: http://localhost:8080/api/auth/signup
+
+- Login API. URL: http://localhost:8080/api/auth/login
+
+- Logout API. URL: http://localhost:8080/api/auth/logout
+
+- Generate access token via refresh token API. URL: http://localhost:8080/api/auth/refresh
+
+
+## Video API
+- Sharing YouTube videos API. URL: http://localhost:8080/api/video/add
+
+- Viewing a list of shared videos: 
+    + Get my shared videos API: http://localhost:8080/api/video/user/videos
+
+    + Get all shared videos API: http://localhost:8080/api/video
+
+- Viewing a video API: http://localhost:8080/api/video/:id
+
+- Real-time notifications for new video shares: 
+
+
+# Troubleshooting
+Troubleshooting: Common issues that may arise during setup and their potential solutions.
