@@ -7,7 +7,7 @@ import multer from "multer";
 import compression from "compression";
 import errorHandler from "errorhandler";
 import cookieParser from "cookie-parser";
-import { NODE_ENV, CLIENT_URL, PORT } from "./config";
+import { CLIENT_URL, PORT } from "./config";
 import { connectDatabase } from "./configs/db.config";
 import { accessLogStream } from "./configs/morgan.config";
 import multerConfig from "./configs/multer.config";
@@ -43,10 +43,8 @@ app.use(
 app.use(morgan("combined", { stream: accessLogStream }));
 app.use(multer(multerConfig.options).fields(multerConfig.fields));
 
-if (NODE_ENV === "dev") {
-  app.use(cors({ origin: CLIENT_URL }));
-  app.use(errorHandler());
-}
+app.use(cors({ origin: CLIENT_URL }));
+app.use(errorHandler());
 
 app.use("/api", apiRoute);
 app.use("*", handleRoute);

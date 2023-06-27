@@ -10,7 +10,9 @@
     "lint:fix": "eslint 'src/**/*.{js,jsx,ts,tsx}' --fix",
     "test": "jest",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "docker-build": "docker build -t syv-fe .",
+    "docker-run": "docker run -p 3000:3000 syv-fe"
   },
   "devDependencies": {
     "@storybook/addon-a11y": "^7.0.23",
