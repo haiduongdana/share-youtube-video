@@ -72,3 +72,7 @@ export const PopUpContainer = styled.div`
   background-color: ${({ theme }: { theme: ThemeMode }) =>
     theme.color.textButtonHover};
 `;
+
+export const P = styled.p`
+    word-break: break-word;
+`;

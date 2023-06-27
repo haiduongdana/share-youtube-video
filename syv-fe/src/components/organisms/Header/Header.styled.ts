@@ -22,19 +22,20 @@ export const Logo = styled.div`
 `;
 
 export const RouteContainer = styled.div`
-  display: flex;
-  margin-left: auto;
-  gap: ${({ theme }: { theme: ThemeMode }) => theme.spacing.padding.medium};
-  @media screen and (max-width: 860px) {
-    position: absolute;
-    top: 62px;
-    right: 15px;
-    flex-direction: column;
-    background-color: ${({ theme }: { theme: ThemeMode }) =>
-      theme.color.textButtonHover};
-    min-width: 180px;
-    padding: 24px 24px;
-  }
+    display: flex;
+    margin-left: auto;
+    gap: ${({ theme }: { theme: ThemeMode }) => theme.spacing.padding.medium};
+    @media screen and (max-width: 860px) {
+        position: absolute;
+        top: 63px;
+        right: 15px;
+        flex-direction: column;
+        background-color: ${({ theme }: { theme: ThemeMode }) =>
+            theme.color.popupMenuBackground};
+        min-width: 180px;
+        padding: 24px 24px;
+        z-index: 10;
+    }
 `;
 
 export const MenuButton = styled.div`
@@ -44,9 +45,11 @@ export const MenuButton = styled.div`
 `;
 
 export const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    @media screen and (max-width: 860px) {
+        padding: 0 20px;
+    }
 `;

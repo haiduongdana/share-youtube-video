@@ -24,7 +24,7 @@ const Header: React.FC<HeaderProps> = ({}) => {
   const { lang, changeLang } = useContext(LangContext);
   const { t } = useI18n();
   const router = useRouter();
-  const [openMenu, setOpenMenu] = useState(false);
+  const [openMenu, setOpenMenu] = useState(true);
 
   const onChangeLangHandler = useCallback(() => {
     if (lang === "en") {

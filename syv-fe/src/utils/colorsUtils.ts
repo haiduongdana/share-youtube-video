@@ -14,4 +14,6 @@ export const colorsUtils = {
   grayDark: "#808080",
   grayDarker: "#333333",
   alertRed: "#b30909",
+  popUpMenuLight: "#f0f0f0",
+  popUpMenuDark: "#4B4A4A",
 };

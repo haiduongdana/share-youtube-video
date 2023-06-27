@@ -1,6 +1,7 @@
 import React, { useCallback } from "react";
 import { VideoItemProps } from "./VideoItem.types";
 import {
+    P,
   Thumbnail,
   ThumbnailContainer,
   Title,
@@ -32,9 +33,9 @@ const VideoItem: React.FC<VideoItemProps> = ({
         </ThumbnailContainer>
         <Container display="flex" flexDirection="column" gap="4px" width="50%">
             <Title data-testid="title">{title}</Title>
-            <p data-testid="username">Username: {user.username}</p>
-            <p data-testid="email">Email: {user.email}</p>
-            <p data-testid="sharedDate">Shared At: {formatDate(sharedDate)}</p>
+            <P data-testid="username">Username: {user.username}</P>
+            <P data-testid="email">Email: {user.email}</P>
+            <P data-testid="sharedDate">Shared At: {formatDate(sharedDate)}</P>
         </Container>
     </VideoContainer>
   );

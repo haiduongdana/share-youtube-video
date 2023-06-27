@@ -54,7 +54,7 @@ const ShareVideoForm: React.FC<ShareVideoFormProps> = ({
       <Container
         display="flex"
         gap="12px"
-        xsPadding="8px 0px"
+        xsPadding="8px 20px"
         lgPadding="12px 0px"
       >
         <TextField

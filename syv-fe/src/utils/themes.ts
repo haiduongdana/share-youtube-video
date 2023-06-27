@@ -9,6 +9,7 @@ export interface ThemeMode {
     textButtonHover: string;
     containedButtonHover: string;
     alert: string;
+    popupMenuBackground: string;
   };
   spacing: {
     padding: {
@@ -55,6 +56,7 @@ export const lightTheme: ThemeMode = {
     textButtonHover: colorsUtils.darkGrayLighter,
     containedButtonHover: colorsUtils.deepBlack,
     alert: colorsUtils.alertRed,
+    popupMenuBackground: colorsUtils.popUpMenuLight,
   },
   spacing: {
     padding: {
@@ -102,6 +104,7 @@ export const darkTheme: ThemeMode = {
     textButtonHover: colorsUtils.whiteTranslucent,
     containedButtonHover: colorsUtils.softWhite,
     alert: colorsUtils.alertRed,
+    popupMenuBackground: colorsUtils.popUpMenuDark,
   },
 };
 
