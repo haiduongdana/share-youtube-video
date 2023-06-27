@@ -5,11 +5,11 @@ WORKDIR /app
 COPY package.json yarn.lock ./
 COPY .env.local ./
 
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npm build
+RUN npm run build
 
 EXPOSE 3000
 
